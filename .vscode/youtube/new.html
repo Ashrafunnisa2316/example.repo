@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dashboard</title>
+
+<style>
+
+
+body{
+    font-family: Arial;
+    margin:0;
+    background:#f5f7fa;
+}
+
+
+.top-bar{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:15px 20px;
+    background:#e2e6ea;
+}
+
+.top-bar input{
+    padding:8px 15px;
+    border-radius:20px;
+    border:1px solid #ccc;
+}
+.top-header {
+    background: #f5f5f5;   
+    padding: 20px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+}
+
+.top-header h1 {
+    color: #222;
+}
+
+.search-bar input {
+    padding: 8px 15px;
+    border-radius: 20px;
+    border: 1px solid #ccc;
+    width: 500px;
+
+.navbar{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    background:#2f3e50;
+    padding:18px 25px;
+    width:300%;
+}
+.logo{
+    color:white;
+    font-size:22px;
+    font-weight:bold;
+}
+.nav-links{
+    list-style:none;
+    display:flex;
+    gap:20px;
+    padding:0;
+    margin:0;
+}
+
+.nav-links li{
+    cursor:pointer;
+}
+
+.top-bar {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    background: #007bff;
+    color: white;
+}
+
+.menu-btn {
+    display: none;
+    font-size: 26px;
+    cursor: pointer;
+    padding: 10px;
+}
+
+
+.sidebar {
+    position: fixed;
+    top: 0;
+    left: -100px;   
+    width: 100px;
+    height: 100vh;
+    background: #2c3e50;
+    padding-top: 60px;
+    transition: 0.3s;
+    z-index: 1000;
+}
+.sidebar.active {
+    left: 0;
+  
+ .close-btn {
+    position: absolute;
+    top: 20px;
+    right: 20px;   
+    font-size: 22px;
+    color: white;
+    cursor: pointer;
+}   
+
+.sidebar a {
+    display: block;
+    padding: 15px;
+    color: white;
+    text-decoration: none;
+}
+
+.sidebar a:hover {
+    background: #34495e;
+}
+
+
+@media (max-width: 768px) {
+    .menu-btn {
+        display: block;
+    }
+
+    .nav-links {  
+        display: none;
+    }
+}
+
+
+
+@media (min-width: 768px) {
+    .menu-btn {
+        display: none;
+    }
+}
+.stats-container{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:20px;
+    padding:20px;
+}
+
+
+
+.dashboard{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:20px;
+    padding:20px;
+}
+
+.card{
+    background:white;
+    padding:20px;
+    border-radius:10px;
+    box-shadow:0 4px 10px rgba(0,0,0,0.1);
+    position:relative;
+}
+
+.card h3{
+    margin:0;
+}
+
+.card p{
+    color:blue;
+    font-weight:bold;
+}
+
+.icon{
+    position:absolute;
+    right:15px;
+    top:15px;
+}
+
+
+.order-form{
+    background:white;
+    padding:1px;
+    margin:5px;
+    border-radius:1px;
+    box-shadow:0 4px 10px rgba(0,0,0,0.1);
+}
+
+.order-form form{
+    display:flex;
+    flex-wrap:wrap;
+    gap:1px;
+}
+
+.order-form input,
+.order-form select{
+    padding:1px;
+    flex:1 1 10px;
+}
+
+.order-form button{
+    background:#007bff;
+    color:white;
+    border:none;
+    padding:1px;
+    cursor:pointer;
+    border-radius:0
+}
+
+
+
+ .order-form form{
+    display:flex;
+    flex-direction:row;   
+    gap:35px;
+}
+
+.order-form input,
+.order-form select,
+.order-form button{
+    width:10%;
+}
+
+
+table {
+    width: 300%;
+    border-collapse: collapse;
+}
+
+th, td {
+    padding: 10px;
+    text-align: left;
+    white-space: nowrap;   
+}
+
+
+
+
+.table-container{
+    padding:20px;
+}
+
+table{
+    width:300%;
+    border-collapse:collapse;
+}
+
+th,td{
+    padding:12px;
+    border:1px solid #ddd;
+}
+
+th{
+    background:#2c3e50;
+    color:white;
+}
+
+.status{
+    padding:5px 10px;
+    border-radius:12px;
+    font-size:12px;
+}
+
+.completed{
+    background:#dcfce7;
+    color:#166534;
+}
+
+.processing{
+    background:#fef9c3;
+    color:#854d0e;
+}
+
+.cancelled{
+    background:#fee2e2;
+    color:#991b1b;
+}
+
+
+@media(max-width:768px){
+
+    .dashboard{
+        grid-template-columns:1fr;
+    }
+
+    .order-form form{
+        flex-direction:row;
+    }
+
+    table{
+        font-size:8px;
+    }
+
+}  */
+   *{
+    box-sizing:border-box;
+}
+
+
+
+
+
+</style>
+</head>
+<body>
+
+
+<div class="top-bar">
+    <h2>Welcome Back, John!</h2>
+    <input type="text" placeholder="Search orders...">
+</div>
+<!-- Top Bar -->
+
+    <h2>Dashboard</h2>
+
+<div class="menu-btn" onclick="toggleMenu()">☰</div>
+
+<!-- Sidebar Menu -->
+<div  class="sidebar" id="sidebar">
+    <button class="close-btn" onclick="closeMenu()">✖</button>
+    <a href="#">Home</a>
+    <a href="#">Orders</a>
+    <a href="#">Users</a>
+    <a href="#">Reports</a>
+</div>
+
+<!-- NAVBAR -->
+<div class="navbar">
+    <ul class="nav-links">
+        <li>Home</li>
+        <li>Orders</li>
+        <li>Users</li>
+        <li>Reports</li>
+    </ul>
+</div>
+
+<!-- DASHBOARD CARDS -->
+<div class="dashboard">
+    <div class="card">
+        <h3>Total Revenue</h3>
+        <span class="icon">💰</span>
+        <p>$50,090</p>
+    </div>
+
+    <div class="card">
+        <h3>Total Users</h3>
+        <span class="icon">👥</span>
+        <p>8,549</p>
+    </div>
+
+    <div class="card">
+        <h3>Orders</h3>
+        <span class="icon">📦</span>
+        <p>1,423</p>
+    </div>
+
+    <div class="card">
+        <h3>Conversion Rate</h3>
+        <span class="icon">📊</span>
+        <p>3.24</p>
+    </div>
+</div>
+
+<!-- ORDER FORM -->
+<div class="order-form">
+    <h3>Add New Order</h3>
+    <form id="orderForm">
+        <input type="text" id="customer" placeholder="Customer Name" required>
+        <input type="text" id="product" placeholder="Product" required>
+        <input type="number" id="amount" placeholder="Amount" required>
+
+        <select id="status" required>
+            <option value="">Select Status</option>
+            <option value="Completed">Completed</option>
+            <option value="Processing">Processing</option>
+            <option value="Cancelled">Cancelled</option>
+        </select>
+
+        <input type="date" id="date" required>
+
+        <button type="submit">Add Order</button>
+    </form>
+</div>
+
+<!-- TABLE -->
+<div class="table-container">
+<h2>Recent Orders</h2>
+
+<table>
+<thead>
+<tr>
+    <th>Order ID</th>
+    <th>Customer</th>
+    <th>Product</th>
+    <th>Amount</th>
+    <th>Status</th>
+    <th>Date</th>
+</tr>
+</thead>
+
+<tbody id="orderTableBody">
+
+<tr>
+    <td>#ORD-001</td>
+    <td>Sarah Johnson</td>
+    <td>MacBook Pro</td>
+    <td>$2399</td>
+    <td><span class="status completed">Completed</span></td>
+    <td>2024-01-15</td>
+</tr>
+
+<tr>
+<td>#ORD-002</td>
+<td>Micheal Chen</td>
+<td>Wireless Headphone</td>
+<td>$299</td>
+<td><span class="status processing">Processing</span></td>
+<td>2024-01-15</td>
+</tr>
+
+<tr>
+<td>#ORD-003</td>
+<td>Emma Davis</td>
+<td>Smart Watch</td>
+<td>$449</td>
+<td><span class="status completed">Completed</span></td>
+<td>2024-01-14</td>
+</tr>
+
+<tr>
+<td>#ORD-004</td>
+<td>James Wilson</td>
+<td>iPad Air</td>
+<td>$699</td>
+<td><span class="status cancelled">Cancelled</span></td>
+<td>2024-01-14</td>
+</tr>
+
+<tr>
+<td>#ORD-005</td>
+<td>Lisa Anderson</td>
+<td>Mechanical Keyboard</td>
+<td>$159</td>
+<td><span class="status processing">Processing</span></td>
+<td>2024-01-13</td>
+</tr>
+
+<tr>
+<td>#ORD-006</td>
+<td>David Martinez</td>
+<td>4K Monitor</td>
+<td>$549</td>
+<td><span class="status completed">Completed</span></td>
+<td>2024-01-13</td>
+</tr>
+
+<tr>
+<td>#ORD-007</td>
+<td>Rachel Brown</td>
+<td>Gaming Mouse</td>
+<td>$89</td>
+<td><span class="status completed">Completed</span></td>
+<td>2024-01-12</td>
+</tr>
+
+
+
+</tbody>
+</table>
+</div>
+
+<!-- JAVASCRIPT -->
+<script>
+
+let orderCount = 2;
+
+document.getElementById("orderForm").addEventListener("submit", function(e){
+
+    e.preventDefault();
+
+    let customer = document.getElementById("customer").value;
+    let product = document.getElementById("product").value;
+    let amount = document.getElementById("amount").value;
+    let status = document.getElementById("status").value;
+    let date = document.getElementById("date").value;
+
+    let orderId = "#ORD-" + String(orderCount).padStart(3, '0');
+    orderCount++;
+
+    let statusClass = "";
+
+    if(status === "Completed"){
+        statusClass = "completed";
+    }
+    else if(status === "Processing"){
+        statusClass = "processing";
+    }
+    else{
+        statusClass = "cancelled";
+    }
+
+    let newRow = `
+        <tr>
+            <td>${orderId}</td>
+            <td>${customer}</td>
+            <td>${product}</td>
+            <td>$${amount}</td>
+            <td><span class="status ${statusClass}">${status}</span></td>
+            <td>${date}</td>
+        </tr>
+    `;
+
+    document.getElementById("orderTableBody").innerHTML += newRow;
+
+    document.getElementById("orderForm").reset();
+    function openMenu() {
+    document.getElementById("sidebar").style.left = "0";
+}
+
+function closeMenu() {l
+    document.getElementById("sidebar").style.left = "-250px";
+}
+});
+
+</script>
+<script>
+function toggleMenu() {
+    let sidebar = document.getElementById("sidebar");
+    if (sidebar.style.left === "0px") {
+        sidebar.style.left = "-250px";
+    } else {
+        sidebar.style.left = "0px";
+    }
+}
+</script>
+<script>
+function toggleMenu() {
+    document.getElementById("sidebar").classList.toggle("active");
+}
+</script>
+
+
+
+</body>
+</html>

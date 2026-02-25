@@ -1,0 +1,527 @@
+<!-- <h2>Recent Orders</h2>  -->
+<!-- <div class="order-header">
+    <h2>Recent Orders</h2>
+    <button id="addOrderBtn">Add Order</button>
+    <div id="orderModal" class="modal">
+    <div class="modal-content">
+        <span id="closeModal">&times;</span>
+        <h3>Add New Order</h3>
+
+        <input type="text" id="customerName" placeholder="Customer Name"><br><br>
+        <input type="text" id="product" placeholder="Product"><br><br>
+        <input type="number" id="amount" placeholder="Amount"><br><br>
+
+        <select id="status">
+            <option value="Completed">Completed</option>
+            <option value="Processing">Processing</option>
+            <option value="Cancelled">Cancelled</option>
+        </select><br><br>
+
+        <button onclick="addOrder()">Submit</button>
+    </div>
+</div> -->
+<!-- <button class="add-btn" onclick="toggleForm()"> Add Order</button>
+ </div>
+<form id="orderForm">
+    <input type="text" id="orderId" placeholder="Order ID" required>
+    <input type="text" id="customer" placeholder="Customer Name" required>
+    <input type="text" id="product" placeholder="Product" required>
+    <input type="number" id="amount" placeholder="Amount" required>
+    <select id="status">
+            <option>Completed</option>
+            <option>Processing</option>
+            <option>Cancelled</option>
+        </select>
+        <input type="date" id="date">
+        </div>
+      <button onclick="addOrder()">Submit Order</button>
+</div> -->
+<!-- Add Order Button -->
+
+document.addEventListener("DOMContentLoaded", function () {
+    const form = document.getElementById("orderForm");
+    const tableBody = document.querySelector("tbody");
+
+    // Count existing rows ONLY ONCE
+    let orderCount = tableBody.rows.length + 1;
+
+    form.addEventListener("submit", function (e) {
+        e.preventDefault();
+
+        let orderId = "#ORD-" + String(orderCount).padStart(3, "0");
+        orderCount++; // increase AFTER using it
+
+    // let orderCount = document.querySelectorAll("tbody tr").length + 1;
+
+    // const form = document.getElementById("orderForm");
+    // const tableBody = document.querySelector("tbody");
+
+    // // Generate Order ID
+    // function generateOrderId() {
+    //     return "#ORD-00" + orderCount++;
+    // }
+
+    // form.addEventListener("submit", function (e) {
+    //     e.preventDefault();
+    //     let orderId = "#ORD-" + String(orderCount++).padStart(3, "0");
+
+        // Get values
+        // let orderId = generateOrderId();
+        let customer = document.getElementById("customerName").value.trim();
+        let product = document.getElementById("productName").value.trim();
+        let amount = document.getElementById("amount").value.trim();
+        let status = document.getElementById("status").value;
+        let date = document.getElementById("date").value;
+
+
+            let statusClass = "";
+
+    if (status === "Completed") {
+        statusClass = "completed";
+    } else if (status === "Processing") {
+        statusClass = "processing";
+    } else if (status === "Cancelled") {
+        statusClass = "cancelled";
+    }
+
+        // Validation check
+        if (!customer || !product || !amount || !date || !image) {
+            // alert("Please fill all fields!");
+            return;
+        }
+        
+        let imageSrc = document.getElementById("preview").src;
+        // Insert row
+        let newRow = document.createElement("tr");
+
+        newRow.innerHTML = `
+            <td>${orderId}</td>
+            <td>${customer}</td>
+            <td>${product}</td>
+            <td>$${amount}</td>
+            <td class="status ${statusClass}">${status}</td>
+            <td>${date}</td>
+        `;
+
+        tableBody.appendChild(newRow);
+
+        form.reset();
+        document.getElementById("preview").style.display = "none";
+    });
+
+});
+
+
+form
+
+<script>
+document.addEventListener("DOMContentLoaded", function(){
+
+    let nameRegex = /^[A-Za-z ]+$/; // at least 1 letter
+
+    let form = document.getElementById("orderForm");
+    let customer = document.getElementById("customer");
+    let product = document.getElementById("product");
+    let customerError = document.getElementById("customerError");
+    let productError = document.getElementById("productError");
+
+    // ===== LIVE VALIDATION =====
+    customer.addEventListener("input", function(){
+        if(!/^[A-Za-z ]*$/.test(this.value)){
+            customerError.innerText = "Numbers are not allowed!";
+        } else {
+            customerError.innerText = "";
+        }
+    });
+
+    product.addEventListener("input", function(){
+        if(!/^[A-Za-z ]*$/.test(this.value)){
+            productError.innerText = "Numbers are not allowed!";
+        } else {
+            productError.innerText = "";
+        }
+    });
+
+    // ===== SUBMIT VALIDATION =====
+    form.addEventListener("submit", function(e){
+
+        let isValid = true;
+
+        if(!nameRegex.test(customer.value)){
+            customerError.innerText = "Enter valid customer name!";
+            isValid = false;
+        }
+
+        if(!nameRegex.test(product.value)){
+            productError.innerText = "Enter valid product name!";
+            isValid = false;
+        }
+
+        if(!isValid){
+            e.preventDefault(); 
+        }// stop only if invalid
+        // } else {
+        //     alert("Form Submitted Successfully ✅");
+        // }
+
+    });
+
+});
+</script>
+</html>
+
+
+<script>
+document.addEventListener("DOMContentLoaded", function(){
+
+    const form = document.getElementById("orderForm");
+    const customer = document.getElementById("customer");
+    const product = document.getElementById("product");
+    const customerError = document.getElementById("customerError");
+    const productError = document.getElementById("productError");
+
+    // ===== LIVE VALIDATION =====
+    function validateName(input, errorElement) {
+        if (/\d/.test(input.value)) {
+            errorElement.innerText = "Numbers are not allowed!";
+            return false;
+        } else if (input.value.trim() === "") {
+            errorElement.innerText = "This field is required!";
+            return false;
+        } else {
+            errorElement.innerText = "";
+            return true;
+        }
+    }
+
+    customer.addEventListener("input", function(){
+        validateName(customer, customerError);
+    });
+
+    product.addEventListener("input", function(){
+        validateName(product, productError);
+    });
+
+    // ===== FORM SUBMIT =====
+    form.addEventListener("submit", function(e){
+
+        let validCustomer = validateName(customer, customerError);
+        let validProduct = validateName(product, productError);
+
+        if (!validCustomer || !validProduct) {
+            e.preventDefault();  // Stop only if invalid
+        } else {
+            alert("Form Submitted Successfully ✅");
+            // If you want real submission, remove alert and add action attribute in form
+        }
+        form.addEventListener("submit", function(e){
+
+    let validCustomer = validateName(customer, customerError);
+    let validProduct = validateName(product, productError);
+
+    if (!validCustomer || !validProduct) {
+        e.preventDefault();
+    } else {
+
+        e.preventDefault(); // stop reload
+
+        alert("Form Submitted Successfully ✅");
+
+        // ✅ RESET FORM
+        form.reset();
+
+        // ✅ CLOSE MODAL
+        document.getElementById("orderModal").style.display = "none";
+
+    }
+
+});
+
+    });
+
+});
+</script>
+<script>
+form.addEventListener("submit", function(e){
+
+    let validCustomer = validateName(customer, customerError);
+    let validProduct = validateName(product, productError);
+
+    if (!validCustomer || !validProduct) {
+        e.preventDefault();
+    } else {
+
+        e.preventDefault(); // stop reload
+
+        alert("Form Submitted Successfully ✅");
+
+        // ✅ RESET FORM
+        form.reset();
+
+        // ✅ CLOSE MODAL
+        document.getElementById("orderModal").style.display = "none";
+
+    }
+
+});
+</script>
+<script>
+
+function addOrder() {
+
+    let orderId = document.getElementById("orderId").value;
+    let name = document.getElementById("customerName").value;
+    let product = document.getElementById("productName").value;
+    let amount = document.getElementById("amount").value;
+    let status = document.getElementById("status").value;
+    let date = document.getElementById("date").value;
+    let imageInput = document.getElementById("productImage");
+
+    if(name.trim() === ""){
+        alert("Enter valid name");
+        return;
+    }
+
+    let table = document.getElementById("orderTable")
+                .getElementsByTagName("tbody")[0];
+
+    let newRow = table.insertRow();
+
+    newRow.insertCell(0).innerHTML = orderId;
+    newRow.insertCell(1).innerHTML = name;
+    newRow.insertCell(2).innerHTML = product;
+    newRow.insertCell(3).innerHTML = amount;
+    newRow.insertCell(4).innerHTML = status;
+    newRow.insertCell(5).innerHTML = date;
+
+    // Image Preview in Table
+    let imgCell = newRow.insertCell(6);
+
+    if (imageInput.files.length > 0) {
+        let reader = new FileReader();
+        reader.onload = function(e) {
+            imgCell.innerHTML = `<img src="${e.target.result}" width="60">`;
+        }
+        reader.readAsDataURL(imageInput.files[0]);
+    }
+
+    // Close Form
+    document.getElementById("orderForm").style.display = "none";
+
+    // Reset Form
+    document.getElementById("orderForm").reset();
+}
+
+</script>
+</html>
+
+
+
+<!-- <script>
+    let editingRow = null;
+    document.addEventListener("DOMContentLoaded", function () {
+
+    let namePattern = /^[A-Za-z\s]*$/;
+    let editingRow = null;
+
+    // Order counter auto-detect
+    function getNextOrderNumber() {
+        let rows = document.querySelectorAll("#orderTableBody tr");
+        return rows.length + 1;
+    }
+
+    // Live validation
+    document.getElementById("customer").addEventListener("input", function () {
+        let error = document.getElementById("customerError");
+        error.innerText = namePattern.test(this.value) ? "" : "Only letters allowed!";
+    });
+
+    document.getElementById("product").addEventListener("input", function () {
+        let error = document.getElementById("productError");
+        error.innerText = namePattern.test(this.value) ? "" : "Only letters allowed!";
+    });
+
+    // FORM SUBMIT
+    document.getElementById("orderForm").addEventListener("submit", function (e) {
+        e.preventDefault();
+
+        let customer = document.getElementById("customer").value.trim();
+        let product = document.getElementById("product").value.trim();
+        let amount = document.getElementById("amount").value.trim();
+        let status = document.getElementById("status").value;
+        let date = document.getElementById("date").value;
+        let image = document.getElementById("preview").src;
+
+        if (!customer || !product || !amount || !date) {
+            alert("Please fill all fields!");
+            return;
+        }
+
+        // let tableBody = document.getElementById("orderTableBody");
+        // let row;
+
+        // // 🔹 If editing → update same row
+        // if (editingRow) {
+        //     row = editingRow;
+        //     editingRow = null;
+        // } 
+        // // 🔹 If new → create row
+        // else {
+        //     row = tableBody.insertRow();
+        //     row.insertCell(0).innerText = "#ORD-" + getNextOrderNumber();
+        //     row.insertCell(1);
+        //     row.insertCell(2);
+        //     row.insertCell(3);
+        //     row.insertCell(4);
+        //     row.insertCell(5);
+        //     row.insertCell(6);
+        //     row.insertCell(7).innerHTML =
+        //         `<button class="action-btn edit-btn" onclick="editRow(this)">Edit</button>
+        //          <button class="action-btn delete-btn" onclick="deleteRow(this)">Delete</button>`;
+        // }
+
+        // // Image
+        // row.cells[1].innerHTML =
+        //     image ? `<img src="${image}" width="50">` : "No Image";
+
+        // // Customer
+        // row.cells[2].innerText = customer;
+
+        // // Product
+        // row.cells[3].innerText = product;
+
+        // // Amount
+        // row.cells[4].innerText = "₹" + amount;
+
+        // // Status with color
+        // let colorClass = "";
+        // if (status === "Completed") colorClass = "green";
+        // else if (status === "Processing") colorClass = "orange";
+        // else colorClass = "red";
+
+        // row.cells[5].innerHTML =
+        //     `<span class="status ${colorClass}">${status}</span>`;
+
+        // // Date
+        // row.cells[6].innerText = date;
+
+        let tableBody = document.getElementById("orderTableBody");
+let row;
+
+// If editing
+if (editingRow) {
+    row = editingRow;
+    editingRow = null;
+} else {
+    row = tableBody.insertRow();
+    row.insertCell(0).innerText = "#ORD-" + (tableBody.rows.length);
+    row.insertCell(1);
+    row.insertCell(2);
+    row.insertCell(3);
+    row.insertCell(4);
+    row.insertCell(5);
+    row.insertCell(6);
+    row.insertCell(7).innerHTML =
+        `<button onclick="editRow(this)">Edit</button>
+         <button onclick="deleteRow(this)">Delete</button>`;
+}
+
+// Fill data
+row.cells[1].innerHTML =
+    image ? `<img src="${image}" width="50">` : "No Image";
+
+row.cells[2].innerText = customer;
+row.cells[3].innerText = product;
+row.cells[4].innerText = "₹" + amount;
+
+// Status color
+let colorClass = "";
+if (status === "Completed") colorClass = "green";
+else if (status === "Processing") colorClass = "orange";
+else colorClass = "red";
+
+row.cells[5].innerHTML =
+    `<span class="status ${colorClass}">${status}</span>`;
+
+row.cells[6].innerText = date;
+
+        this.reset();
+        document.getElementById("preview").style.display = "none";
+        document.getElementById("orderFormContainer").style.display = "none";
+
+        updateDashboard();
+    });
+
+    updateDashboard();
+});
+
+
+// EDIT FUNCTION (UPDATED)
+function editRow(btn) {
+
+    editingRow = btn.closest("tr");
+
+    document.getElementById("customer").value =
+        editingRow.cells[2].innerText;
+
+    document.getElementById("product").value =
+        editingRow.cells[3].innerText;
+
+    document.getElementById("amount").value =
+        editingRow.cells[4].innerText.replace(/[^0-9]/g, "");
+
+    document.getElementById("status").value =
+        editingRow.cells[5].innerText.trim();
+
+    document.getElementById("date").value =
+        editingRow.cells[6].innerText;
+
+    document.getElementById("orderFormContainer").style.display = "block";
+}
+
+
+// DELETE
+function deleteRow(btn) {
+    btn.closest("tr").remove();
+    updateDashboard();
+}
+
+
+// DASHBOARD
+function updateDashboard() {
+
+    let rows = document.querySelectorAll("#orderTableBody tr");
+
+    let totalRevenue = 0;
+    let users = new Set();
+    let completedOrders = 0;
+
+    rows.forEach(function (row) {
+
+        let amountText = row.cells[4].innerText.replace(/[^0-9]/g, "");
+        totalRevenue += Number(amountText);
+
+        let customer = row.cells[2].innerText.trim();
+        if (customer) users.add(customer);
+
+        let status = row.cells[5].innerText.trim();
+        if (status === "Completed") completedOrders++;
+    });
+
+    let totalOrders = rows.length;
+    let totalUsers = users.size;
+
+    let conversionRate =
+        totalOrders > 0
+            ? ((completedOrders / totalOrders) * 100).toFixed(1)
+            : 0;
+
+    document.getElementById("totalRevenue").innerText = "₹" + totalRevenue;
+    document.getElementById("totalUsers").innerText = totalUsers;
+    document.getElementById("totalOrders").innerText = totalOrders;
+    document.getElementById("conversionRate").innerText =
+        conversionRate + "%";
+}
+</script> -->
+
+</html>

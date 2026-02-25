@@ -1,0 +1,1120 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+
+    <style>
+        body{
+            margin:0;
+            font-family: Arial, sans-serif;
+            background:#f4f4f4;
+            overflow-x:none;
+            min-width:100px;
+            
+        }
+        /* *{
+    box-sizing:border-box;
+} */
+
+        /* Header */
+        .header{
+            background:#f5f5f5;
+            padding:20px;
+            display:flex;
+            justify-content:space-between;
+            align-items:center;
+        }
+        .top-header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:30px;
+}
+
+.top-header h2{
+    margin:0;
+}
+
+.search-bar{
+    padding:8px 15px;
+    width:250px;
+    border-radius:20px;
+    border:1px solid #ccc;
+}
+
+/* Mobile Responsive */
+@media(max-width:768px){
+    .top-header{
+        flex-direction:column;
+        align-items:flex-start;
+        gap:10px;
+    }
+
+    .search-bar{
+        width:100%;
+    }
+}
+
+
+        /* Desktop Nav */
+        
+        .navbar{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    background:#2f3e50;
+    padding:18px 25px; 
+    position:relative;  
+}
+
+.logo{
+    color:white;
+    font-size:22px;
+    font-weight:bold;
+}
+.nav-links{
+    display:flex;
+}
+
+.nav-links a{
+    color:white;
+    text-decoration:none;
+    margin-left:35px;
+    
+}
+.menu-icon{
+    display:none;
+    font-size:24px;
+    color:white;
+    cursor:pointer;
+}
+
+.nav-links a:hover{
+    color:#00bcd4;
+}
+@media(max-width:768px){
+
+    .menu-icon{
+        display:block;
+    }
+
+    .nav-links{
+        position:fixed;
+        top:0;
+        right:-70%;        /* hidden */
+        width:70%;         /* cover only little page */
+        height:100%;
+        background:#2f3e50;
+        display:flex;
+        flex-direction:column;
+        padding-top:80px;
+        transition:0.3s;
+    }
+
+    .nav-links a{
+        margin:15px 25px;
+        
+    }
+    
+
+    .nav-links.active{
+        right:0;
+    }
+}
+
+
+        /* Menu Button */
+        .menu-btn{
+            display:none;
+            font-size:25px;
+            cursor:pointer;
+        }
+
+        /* Sidebar */
+        .sidebar{
+            position:fixed;
+            top:0;
+            left:-250%;
+            width:50%;
+            height:170vh;
+            background:#2c3e50;
+            transition:0.3s;
+            z-index:1000;
+            padding-top:80px;
+        }
+
+        .sidebar.active{
+            left:0;
+        }
+
+        .sidebar a{
+            display:block;
+            color:white;
+            padding:15px 20px;
+            text-decoration:none;
+        }
+
+        .sidebar a:hover{
+            background:#34495e;
+        }
+
+        .close-btn{
+            position:absolute;
+            top:20px;
+            right:20px;
+            font-size:22px;
+            color:white;
+            cursor:pointer;
+        }
+        /* Container */
+.stats-container {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+    padding: 20px;
+}
+
+/* Card */
+.card {
+    background: #ffffff;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    transition: 0.3s;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+}
+
+/* Header inside card */
+.card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.card h3 {
+    margin: 0;
+    font-size: 18px;
+}
+
+.icon {
+    font-size: 22px;
+}
+
+/* Value text */
+.value {
+    margin-top: 15px;
+    font-size: 20px;
+    font-weight: bold;
+    color: #1e40ff;
+}
+
+/* Responsive */
+@media (max-width: 992px) {
+    .stats-container {
+        grid-template-columns: repeat(2, 1fr);
+        
+    }
+}
+
+@media (max-width: 600px) {
+    .stats-container {
+        grid-template-columns: 1fr;
+        
+    }
+}
+.order-header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+}
+
+.add-btn{
+    background:#2f3e50;
+    color:white;
+    border:none;
+    padding:8px 15px;
+    border-radius:6px;
+    cursor:pointer;
+    float:right;
+}
+
+.order-form{
+    display:none;
+    background:white;
+    padding:10px;
+    margin-top:15px;
+    border-radius:5px;
+}
+.form-container{
+    max-width:600px;
+    margin:60px  auto 0;
+    background:white;
+    padding:25px;
+    border-radius:10px;
+    box-shadow:0 4px 10px rgba(0,0,0,0.1);
+    display:none;
+}
+
+/* Title */
+.form-container h2{
+    margin-bottom:20px;
+}
+
+/* Vertical Form */
+form{
+    display:flex;
+    flex-direction:column;
+}
+
+/* Inputs */
+input, select{
+    padding:12px;
+    margin-bottom:15px;
+    border:1px solid #ccc;
+    border-radius:6px;
+    font-size:14px;
+}
+
+/* Image Preview */
+#preview{
+    width:120px;
+    height:120px;
+    object-fit:cover;
+    border-radius:8px;
+    margin-bottom:15px;
+    display:none;
+    border:1px solid #ddd;
+}
+
+/* Buttons */
+button{
+    padding:12px;
+    border:none;
+    border-radius:6px;
+    font-size:15px;
+    cursor:pointer;
+}
+
+.submit-btn{
+    background:#2d6cdf;
+    color:white;
+    margin-bottom:10px;
+}
+
+.cancel-btn{
+    background:#ccc;
+}
+.form-row{
+    display: flex;
+    gap: 10px;           /* space between */
+    align-items: center; /* vertical alignment */
+    flex-wrap: nowrap;
+    min-width: none;
+    width:100px;
+      
+}.modal {
+    display: none;
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.5);
+}
+
+.modal-content {
+    background: white;
+    padding: 20px;
+    width: 300px;
+    margin: 10% auto;
+    border-radius: 8px;
+}
+
+#closeModal {
+    float: right;
+    cursor: pointer;
+    font-size: 20px;
+}
+
+
+.form-row input,
+.form-row select,
+.form-row button{
+    padding: 8px;
+}
+
+
+.form-row{
+    display:flex;
+    gap:15px;
+    margin-bottom:10px;
+    width: 100px;
+
+}
+
+.form-row input,
+.form-row select{
+    flex:1;
+    padding:8px;
+}
+*{
+    box-sizing: border-box;
+}
+.edit-btn{
+    background:#2d6cdf;
+    color:white;
+    border:none;
+    padding:6px 12px;
+    border-radius:5px;
+    cursor:pointer;
+    margin-right:5px;
+}
+
+.delete-btn{
+    background:#e74c3c;
+    color:white;
+    border:none;
+    padding:6px 12px;
+    border-radius:5px;
+    cursor:pointer;
+}
+.selected {
+    background-color: #d1e7ff;
+}
+body{
+    margin:0;
+    font-family: Arial;
+}
+
+.navbar{
+    width:100%;
+}
+
+.container{
+    width:100%;
+    padding:20px;
+}
+
+.container{
+    display:flex;
+    flex-wrap:wrap;
+    width:100px;
+    padding:20px;
+}
+
+
+@media(max-width:768px){
+    .form-row{
+        flex-direction:row;
+    }
+} 
+
+
+
+        /* Table */
+        /* .table-container{
+            padding:20px;
+            overflow-x:auto;
+        } */
+
+         .table-header {
+    display: flex;
+    justify-content: flex-end;   /* moves button to right */
+    margin-bottom: 15px;
+}
+
+.add-btn {
+    background-color: #2563eb;   /* blue */
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 500;
+    transition: 0.3s;
+}
+
+.add-btn:hover {
+    background-color: #1d4ed8;
+}
+
+        table{
+            width:100%;
+            border-collapse:collapse;
+            min-width:800px;
+            background:white;
+            table-layout: fixed;
+        }
+        th {
+            background: #2f3e4e;
+            color: white;
+            padding: 12px;
+            text-align: left;
+            font-size: 14px;
+}
+
+        td {
+        padding: 10px;
+        border-bottom: 1px solid #ddd;
+        font-size: 14px;
+}
+        th:nth-child(2),
+        td:nth-child(2) {
+        width: 200px;
+        }
+        td img {
+             width: 120px;
+             height: auto;
+}
+
+        th, td{
+            padding:12px;
+            border:1px solid #ddd;
+            white-space:nowrap;
+        }
+
+        th{
+            background:#2c3e50;
+            
+            color:white;
+        }
+
+        @media (max-width: 768px) {
+
+    th, td {
+        padding: 8px;
+        font-size: 12px;
+    }
+
+    td img {
+        width: 35px;
+        height: 35px;
+    }
+}
+
+
+        /* Mobile */
+        @media(max-width:768px){
+            .nav-links{
+                display:none;
+            }
+
+            .menu-btn{
+                display:block;
+            }
+        }
+        .status {
+    padding: 5px 10px;
+    border-radius: 12px;
+    font-size: 12px;
+    font-weight: 600;
+    color: white;
+}
+
+.status.completed {
+    background-color: #28a745;
+}
+
+.status.processing {
+    background-color: #ffc107;
+    color: black;
+}
+
+.status.cancelled {
+    background-color: #dc3545;
+}
+
+        button{
+    min-width: 100px;
+}
+.product-info {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.product-info img {
+  width: 30px;
+  height:auto;
+  object-fit: contain;
+}
+img{
+    max-width: 30%;
+    height:auto
+} 
+
+.table img{
+    width:30px;
+    height:auto;
+}
+
+td {
+  vertical-align: middle;
+}
+
+
+
+
+    </style>
+</head>
+
+<body>
+
+<!-- Header -->
+
+<div class="top-header">
+    <h2>Welcome back John!</h2>
+
+    <input type="text" placeholder="Search orders..." class="search-bar">
+</div>
+
+
+<!-- Desktop Nav -->
+<div class="navbar">
+    <div class="logo">Dashboard</div>
+    <div class="menu-icon" onclick="toggleMenu()">☰</div>
+
+    <div class="nav-links" id="navLinks">
+        <a href="#">Home</a>
+        <a href="#">Orders</a>
+        <a href="#">Users</a>
+        <a href="#">Reports</a>
+    </div>
+</div>
+
+
+<!-- Sidebar (Mobile) -->
+<div class="sidebar" id="sidebar">
+    <div class="close-btn" onclick="toggleMenu()">✖</div>
+    <a href="#">Home</a>
+    <a href="#">Orders</a>
+    <a href="#">Users</a>
+    <a href="#">Reports</a>
+</div>
+<div class="stats-container">
+
+    <div class="card">
+        <div class="card-header">
+            <h3>Total Revenue</h3>
+            <span class="icon">💰</span>
+        </div>
+        <p class="value">$50,090</p>
+    </div>
+
+    <div class="card">
+        <div class="card-header">
+            <h3>Total Users</h3>
+            <span class="icon">👥</span>
+        </div>
+        <p class="value">8,549</p>
+    </div>
+
+    <div class="card">
+        <div class="card-header">
+            <h3>Orders</h3>
+            <span class="icon">📦</span>
+        </div>
+        <p class="value">1,423</p>
+    </div>
+
+    <div class="card">
+        <div class="card-header">
+            <h3>Conversion Rate</h3>
+            <span class="icon">📊</span>
+        </div>
+        <p class="value">3.24</p>
+    </div>
+
+</div>
+
+
+<!-- Table -->
+<!-- <div class="table-container">
+<button onclick="openForm()">Add Order</button> -->
+
+<div class="table-header">
+    <button class="add-btn" onclick="openForm()">+ Add Order</button>
+</div>
+<td>
+    <button class="edit-btn" onclick="editRow(this)">Edit</button>
+    <button onclick="deleteRow()" class="delete-btn">Delete</button>
+</td>
+
+<div id="orderFormContainer" class="form-container">
+    <form id="orderForm" onsubmit="addOrder(event)">
+        
+        <h3>Add New Order</h3>
+
+        <input type="text" id="orderId" placeholder="Order ID" required>
+        <input type="text" id="product-images" placeholder="Product-Images" required>
+        <input type="text" id="customerName" placeholder="Customer Name" required>
+        <input type="text" id="productName" placeholder="Product Name" required>
+        <input type="number" id="amount" placeholder="Amount" required>
+
+        <select id="status">
+            <option value="Completed">Completed</option>
+            <option value="Processing">Processing</option>
+            <option value="Cancelled">Cancelled</option>
+        </select>
+
+        <input type="date" id="date" required>
+         <!-- Product Image Upload -->
+        <label>Upload Product Image</label>
+        <input type="file" accept="image/*" onchange="previewImage(event)">
+        <img id="preview">
+
+        <button type="submit" class="submit-btn">Submit</button>
+        <button type="button" class="cancel-btn" onclick="closeForm()">Cancel</button>
+    </form>
+</div>
+
+
+<!-- Order Form (Hidden by Default) -->
+<!-- <div id="orderForm" style="display:none; margin-top:15px;">
+    <h3>Add New Order</h3>
+
+    <input type="text" id="customer" placeholder="Customer Name" required>
+    <input type="text" id="product" placeholder="Product Name" required>
+    <input type="number" id="amount" placeholder="Amount" required>
+
+    <select id="status">
+        <option value="Completed">Completed</option>
+        <option value="Processing">Processing</option>
+        <option value="Cancelled">Cancelled</option>
+    </select>
+
+    <button onclick="addOrder()">Submit Order</button>
+</div> -->
+
+<table id = orderTable>
+        <tr>
+            <th>Order ID</th>
+            <th>Customer</th>
+            <th>Product</th>
+            <th>Amount</th>
+            <th>Status</th>
+            <th>Date</th>
+        </tr>
+         <!-- <td>
+  <div class="product-info">
+    <img src="https://akm-img-a-in.tosshub.com/indiatoday/images/story/202110/MacBook_Pro.jpg?size=690:388" alt="MacBook Pro">
+    <span>MacBook Pro</span>
+  </div>
+</td>
+    <td>
+  <div class="product-info">
+    <img src="https://akm-img-a-in.tosshub.com/indiatoday/images/story/202110/MacBook_Pro.jpg?size=690:388" alt="Wireless Headphone">
+    <span>Mechanical Keyboard</span>
+  </div>
+</td>
+
+<td>
+  <div class="product-info">
+    <img src="https://in.amazfit.com/cdn/shop/products/61D44N16zDL._SX679.jpg?v=1701612185&width=300" alt="Smart Watch">
+    <span>Smart Watch/span>
+  </div>
+</td>
+<td>
+  <div class="product-info">
+    <img src="https://s.yimg.com/ny/api/res/1.2/0B9Y09qPr49kI5ZXwsk.yA--/YXBwaWQ9aGlnaGxhbmRlcjt3PTI0MDA7aD0xMzUw/https://s.yimg.com/os/creatr-uploaded-images/2022-03/548fd670-a47e-11ec-b9ef-ef1d74d381f2" alt="Ipad Air">
+    <span>Ipad Air</span>
+  </div>
+</td>
+<td>
+  <div class="product-info">
+    <img src="https://images-cdn.ubuy.co.in/69380bcf2187a5b92008e1f3-magegee-mechanical-gaming-keyboard-87.jpg" alt="Mechanical Keyboard">
+    <span>Mechanical Keyboard</span>
+  </div>
+</td>
+<td>
+  <div class="product-info">
+    <img src="https://i.dell.com/is/image/DellContent/content/dam/ss2/product-images/dell-client-products/peripherals/monitors/aw-series/aw3225qf/pdp/monitor-alienware-aw3225qf-hero.psd?fmt=jpg&wid=756&hei=525" alt="4k Monitor">
+    <span>4K Monitor</span>
+  </div>
+</td>
+<td>
+  <div class="product-info">
+    <img src="https://m.media-amazon.com/images/I/61AcT0ZuO3L.jpg" alt="Gaming mouse">
+    <span>Gaming mouse</span>
+  </div>
+</td> -->
+
+
+
+        <tr>
+            <td>#ORD-001</td>
+            <td><img src="https://akm-img-a-in.tosshub.com/indiatoday/images/story/202110/MacBook_Pro.jpg?size=690:388"></td>
+            <td>Sarah Johnson</td>
+            <td>MacBook Pro</td>
+            <td>$2399</td>
+            
+            <td><span class="status completed">Completed</span></td>
+            <td>2024-01-15</td>
+        </tr>
+
+        <tr>
+            <td>#ORD-002</td>
+            <td><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTndMcJW71HLgi9ntgoterJiJJjLxbtOVVpyA&s"></td>
+            <td>Michael Chen</td>
+            <td>Wireless Headphone</td>
+            <td>$299</td>
+            
+            <td><span class="status processing">Processing</span></td>
+            <td>2024-01-15</td>
+        </tr>
+        <tr>
+        <td>#ORD-003</td>
+        <td><img src="https://in.amazfit.com/cdn/shop/products/61D44N16zDL._SX679.jpg?v=1701612185&width=300"></td>
+        <td>Emma Davis</td>
+        <td>Smart Watch</td>
+        <td>$449</td>
+        
+        <td><span class="status completed">Completed</span></td>
+        <td>2024-01-14</td>
+    </tr>
+
+    <tr>
+        <td>#ORD-004</td>
+        <td><img src="https://s.yimg.com/ny/api/res/1.2/0B9Y09qPr49kI5ZXwsk.yA--/YXBwaWQ9aGlnaGxhbmRlcjt3PTI0MDA7aD0xMzUw/https://s.yimg.com/os/creatr-uploaded-images/2022-03/548fd670-a47e-11ec-b9ef-ef1d74d381f2"></td>
+        <td>James Wilson</td>
+        <td>iPad Air</td>
+        <td>$699</td>
+        
+        <td><span class="status cancelled">Cancelled</span></td>
+        <td>2024-01-13</td>
+    </tr>
+
+    <tr>
+        <td>#ORD-005</td>
+        <td><img src="https://images-cdn.ubuy.co.in/69380bcf2187a5b92008e1f3-magegee-mechanical-gaming-keyboard-87.jpg"></td>
+        <td>Lisa Anderson</td>
+        <td>Mechanical Keyboard</td>
+        <td>$159</td>
+        
+        <td><span class="status processing">Processing</span></td>
+        <td>2024-01-13</td>
+    </tr>
+
+    <tr>
+        <td>#ORD-006</td>
+        <td><img src="https://i.dell.com/is/image/DellContent/content/dam/ss2/product-images/dell-client-products/peripherals/monitors/aw-series/aw3225qf/pdp/monitor-alienware-aw3225qf-hero.psd?fmt=jpg&wid=756&hei=525"></td>
+        <td>David Martinez</td>
+        <td>4K Monitor</td>
+        <td>$549</td>
+        
+        <td><span class="status completed">Completed</span></td>
+        <td>2024-01-12</td>
+    </tr>
+
+    <tr>
+        <td>#ORD-007</td>
+        <td><img src="https://m.media-amazon.com/images/I/61AcT0ZuO3L.jpg" ></td>
+        <td>Rachel Brown</td>
+        <td>Gaming Mouse</td>
+        <td>$79</td>
+         
+        <td><span class="status completed">Completed</span></td>
+        <td>2024-01-12</td>
+    </tr>
+    </table>
+</div>
+</body>
+
+<script>
+function toggleMenu(){
+    document.getElementById("sidebar").classList.toggle("active");
+}
+</script>
+<script>
+function toggleForm(){
+    var form = document.getElementById("orderForm");
+    form.style.display = form.style.display === "block" ? "none" : "block";
+}
+
+function addOrder(){
+    var table = document.getElementById("orderTable");
+
+    var row = table.insertRow();
+
+    row.insertCell(0).innerHTML = document.getElementById("orderId").value;
+    row.insertCell(1).innerHTML = document.getElementById("customer").value;
+    row.insertCell(2).innerHTML = document.getElementById("product").value;
+    row.insertCell(3).innerHTML = "$" + document.getElementById("amount").value;
+    row.insertCell(4).innerHTML = document.getElementById("status").value;
+    row.insertCell(5).innerHTML = document.getElementById("date").value;
+
+    document.getElementById("orderForm").style.display = "none";
+    
+}
+</script> 
+<script>
+function toggleMenu(){
+    var menu = document.getElementById("navLinks");
+
+    console.log(menu);   // check if null
+
+    if(menu){
+        menu.classList.toggle("active");
+    }
+}
+</script>
+<script>
+function toggleMenu() {
+    document.getElementById("sidebar").classList.toggle("active");
+}
+</script>
+<script>
+let form = document.getElementById("orderForm");
+let inputs = form.querySelectorAll("input");
+
+inputs.forEach(input => {
+    input.addEventListener("input", checkForm);
+});
+
+function checkForm() {
+    let allFilled = true;
+
+    inputs.forEach(input => {
+        if (input.value.trim() === "") {
+            allFilled = false;
+        }
+    });
+
+    if (allFilled) {
+        form.submit();   // auto submit
+    }
+}
+
+</script>
+<!-- <script>
+let orderCount = 8; // start after your last order
+
+const modal = document.getElementById("orderModal");
+const btn = document.getElementById("addOrderBtn");
+const close = document.getElementById("closeModal");
+
+btn.onclick = function() {
+    modal.style.display = "block";
+}
+
+close.onclick = function() {
+    modal.style.display = "none";
+}
+
+window.onclick = function(event) {
+    if (event.target == modal) {
+        modal.style.display = "none";
+    }
+}
+
+function addOrder() {
+
+    const customer = document.getElementById("customerName").value;
+    const product = document.getElementById("product").value;
+    const amount = document.getElementById("amount").value;
+    const status = document.getElementById("status").value;
+
+    if(customer === "" || product === "" || amount === "") {
+        alert("Please fill all fields");
+        return;
+    }
+
+    const table = document.querySelector("table tbody");
+    const today = new Date().toISOString().split('T')[0];
+
+    orderCount++;
+
+    let statusClass = status.toLowerCase();
+
+    const newRow = `
+        <tr>
+            <td>#ORD-00${orderCount}</td>
+            <td>${customer}</td>
+            <td>${product}</td>
+            <td>$${amount}</td>
+            <td><span class="status ${statusClass}">${status}</span></td>
+            <td>${today}</td>
+        </tr>
+    `;
+
+    table.innerHTML += newRow;
+
+    modal.style.display = "none";
+
+    // Clear form
+    document.getElementById("customerName").value = "";
+    document.getElementById("product").value = "";
+    document.getElementById("amount").value = "";
+}
+</script>
+ -->
+<script>
+function openForm() {
+    document.getElementById("orderFormContainer").style.display = "block";
+}
+
+function closeForm() {
+    document.getElementById("orderFormContainer").style.display = "none";
+}
+
+function addOrder(event) {
+    event.preventDefault();
+
+    let orderId = document.getElementById("orderId").value;
+    let customer = document.getElementById("customerName").value;
+    let product = document.getElementById("productName").value;
+    let amount = document.getElementById("amount").value;
+    let status = document.getElementById("status").value;
+    let date = document.getElementById("date").value;
+
+    let table = document.querySelector("table tbody");
+
+    let statusClass = "";
+    if (status === "Completed") statusClass = "completed";
+    else if (status === "Processing") statusClass = "processing";
+    else statusClass = "cancelled";
+
+    let newRow = `
+        <tr>
+            <td>${orderId}</td>
+            <td>${customer}</td>
+            <td>${product}</td>
+            <td>$${amount}</td>
+            <td><span class="status ${statusClass}">${status}</span></td>
+            <td>${date}</td>
+        </tr>
+    `;
+
+    table.innerHTML += newRow;
+
+    document.getElementById("orderForm").reset();
+    closeForm();
+}
+</script>
+<script>
+function previewImage(event){
+    const preview = document.getElementById('preview');
+    preview.src = URL.createObjectURL(event.target.files[0]);
+    preview.style.display = "block";
+}
+</script>
+<script>
+
+function deleteRow(button){
+    const row = button.parentElement.parentElement;
+    row.remove();
+}
+
+function editRow(button){
+    const row = button.parentElement.parentElement;
+    const cells = row.getElementsByTagName("td");
+
+    // Skip product image column index 1
+    const orderId = cells[0].innerText;
+    const customer = cells[2].innerText;
+    const product = cells[3].innerText;
+    const amount = cells[4].innerText.replace("$","");
+
+    const newCustomer = prompt("Edit Customer Name:", customer);
+    const newProduct = prompt("Edit Product Name:", product);
+    const newAmount = prompt("Edit Amount:", amount);
+
+    if(newCustomer) cells[2].innerText = newCustomer;
+    if(newProduct) cells[3].innerText = newProduct;
+    if(newAmount) cells[4].innerText = "$" + newAmount;
+}
+
+</script>
+<script>
+function deleteRow(button){
+    const confirmDelete = confirm("Are you sure you want to delete this order?");
+    
+    if(confirmDelete){
+        const row = button.closest("tr");
+        row.remove();
+    }
+}
+</script>
+<script>
+let selectedRow = null;
+
+// Select row when clicking
+document.querySelectorAll("tbody tr").forEach(row => {
+    row.addEventListener("click", function () {
+        
+        // Remove previous selection
+        if (selectedRow) {
+            selectedRow.classList.remove("selected");
+        }
+
+        // Add selection to clicked row
+        selectedRow = this;
+        selectedRow.classList.add("selected");
+    });
+});
+</script>
+<script>
+function deleteRow() {
+    if (!selectedRow) {
+        alert("Please select a row to delete.");
+        return;
+    }
+
+    let confirmDelete = confirm("Are you sure you want to delete this order?");
+    
+    if (confirmDelete) {
+        selectedRow.remove();
+        selectedRow = null;
+    }
+}
+</script>
+<
+</html>
+
+function updateDashboard() {
+
+    let rows = document.querySelectorAll("#orderTableBody tr");
+
+    let totalRevenue = 0;
+    let users = new Set();
+    let completedOrders = 0;
+
+    rows.forEach(row => {
+
+        // Amount is column index 4
+        let amountText = row.cells[4].innerText.replace(/[^\d]/g, "");
+        totalRevenue += parseInt(amountText) || 0;
+
+        // Customer is column index 2
+        let customer = row.cells[2].innerText.trim();
+        if (customer !== "") {
+            users.add(customer);
+        }
+
+        // Status is column index 5
+        let status = row.cells[5].innerText.trim();
+        if (status === "Completed") {
+            completedOrders++;
+        }
+
+    });
+
+    let totalOrders = rows.length;
+    let totalUsers = users.size;
+
+    let conversionRate = totalOrders > 0
+        ? ((completedOrders / totalOrders) * 100).toFixed(1)
+        : 0;
+
+    document.getElementById("totalRevenue").innerText = "$" + totalRevenue;
+    document.getElementById("totalUsers").innerText = totalUsers;
+    document.getElementById("totalOrders").innerText = totalOrders;
+    document.getElementById("conversionRate").innerText = conversionRate + "%";
+}
+

@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title> My task </title>
+<style>
+    body{
+        font-family: Arial, sans-serif;
+        background:linear gradient(135deg #667eea, #764ba2);
+        display:flex;
+        justify-content:center;
+        align-items:center;
+        height:100vh;
+    }
+
+    .container{
+        background:white;
+        padding:30px;
+        border-radius:15px;
+        box-shadow:0px 5px 18px rgba(0,0,0,0.3);
+        width:420px;
+    }
+
+    fieldset{
+        border:2px solid #667eea;
+        border-radius:10px;
+        padding:20px;
+    }
+
+    legend{
+        font-weight:bold;
+        color:#764ba2
+        padding:5px 10px;
+        font-size:18px;
+    }
+
+    label{
+        font-weight:bold;
+        display:block;
+        margin-top:12px;
+        color:#333;
+    }
+
+    input, textarea, select{
+    width:100%;
+    padding:10px;
+    margin-top:6px;
+    border-radius:8px;
+    border:1px solid #ccc;
+    font-size:14px;
+    transition:
+    }
+
+    input:focus, textarea:focus, select:focus{
+    border-color:#667e;
+    box-shadow:0px 0px 5px rgba(102,126,234,0.5);
+    outline:none;
+    }
+    textarea{
+        resize:none;
+    }
+
+    button{ 
+        margin-top:15px;
+        width:100%;
+        padding:12px;
+        background:#2563eb;
+        border:none;
+        color:white;
+        font-size:16px;
+        border-radius:8px;
+        cursor:pointer;
+    }
+    button:hover{
+    background:#1d4ed8;
+    }
+</style>
+</head>
+<body>
+<form method = "post">
+<div class = "container">      
+<fieldset>
+<legend>Task 1</legend>
+
+<label> Date</label>
+<input type ="date" name="date1">
+
+<label> Title:</label>
+<input type="text"name="title">
+
+<label> Description:</label>
+<textarea name ="description"rows=4>
+Champion has departed and needs action
+</textarea>
+
+<label> Status</label>
+<select name = "status">
+<option> Pending</option>
+<option> Inprogress</option>
+<option> Completed</option>
+<option> Approved</option>
+</select>
+<button type ="submit"> Submit</button>
+</fieldset>
+</div>
+</form>
+</body>
+</html>
+           

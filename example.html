@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>My Task</title>
+
+<style>
+
+body{
+    font-family: Arial, sans-serif;
+    background:#f3f4f6;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    height:100vh;
+}
+
+.container{
+    background:white;
+    padding:25px;
+    border-radius:12px;
+    box-shadow:0px 5px 18px rgba(0,0,0,0.2);
+    width:420px;
+}
+
+fieldset{
+    border:1px solid #ccc;
+    border-radius:8px;
+    padding:20px;
+}
+
+legend{
+    font-weight:bold;
+    padding:5px 10px;
+}
+
+label{
+    font-weight:bold;
+    display:block;
+    margin-top:10px;
+}
+
+input, textarea, select{
+    width:100%;
+    padding:10px;
+    margin-top:5px;
+    border-radius:6px;
+    border:1px solid #ccc;
+    font-size:14px;
+}
+
+textarea{
+    resize:none;
+}
+
+button{
+    margin-top:15px;
+    width:100%;
+    padding:12px;
+    background:#2563eb;
+    border:none;
+    color:white;
+    font-size:16px;
+    border-radius:8px;
+    cursor:pointer;
+}
+
+button:hover{
+    background:#1d4ed8;
+}
+
+</style>
+</head>
+
+<body>
+
+<form method="post">
+<div class="container">
+
+<fieldset>
+<legend>Task 1</legend>
+
+<label>Date</label>
+<input type="date" name="date1">
+
+<label>Title</label>
+<input type="text" name="title">
+
+<label>Description</label>
+<textarea name="description" rows="4">
+Champion has departed and needs action
+check it twice
+</textarea>
+
+<label>Status</label>
+<select name="status">
+<option>Pending</option>
+<option>In Progress</option>
+<option>Completed</option>
+<option>Approved</option>
+</select>
+
+<button type="submit">Submit</button>
+
+</fieldset>
+
+</div>
+</form>
+
+</body>
+</html>
